@@ -1,35 +1,37 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Home from "./components/Home"
+import AdminDashBoard from "./components/pages/AdminDashBoard"
+import EmpDashBoard from "./components/pages/EmpDashBoard"
+import Login from "./components/pages/Login"
+// import { admin } from './components/api/Admin'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [user,setUser] = useState(null)
+  // const [AdminPage,setAdminPage] = useState("") 
+  const LogDash = (email,password) =>{
+    
+    if(email == "deepak@gmail.com" && password == '123'){
+      // employee dashboard
+      setUser("EmpDashBoard")
+    }
+    else if(email == 'jit@gmail.com' && password == '123'){
+    //  admin dashboard
+      setUser('admin')
+    }
+    else{
+      alert("Invalid crendentials")
+    }
+
+
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {!user ? <Login LogDash={LogDash}/> :(user == 'EmpDashBoard') ? ( <EmpDashBoard/>) : (<AdminDashBoard/>)}
+    
     </>
-  )
+  );
 }
 
 export default App
